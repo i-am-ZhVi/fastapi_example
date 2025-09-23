@@ -1,10 +1,14 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
+from core.database import db_helper
 import uvicorn
+
 
 app = FastAPI()
 
+
 @app.get("/")
 def index():
+
     return "444"
 
 
