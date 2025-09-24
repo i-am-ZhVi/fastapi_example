@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from core.database import db_helper
+from core import db_helper
 import uvicorn
 
 

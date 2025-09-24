@@ -11,8 +11,7 @@ class ConfigDataBase(BaseSettings):
 
     @property
     def database_url(self):
-        return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASSWORD} \
-        @{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+        return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
 
 
 db_config = ConfigDataBase()

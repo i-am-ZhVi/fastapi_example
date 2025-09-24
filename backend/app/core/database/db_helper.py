@@ -1,11 +1,11 @@
 from asyncio import current_task
 from contextlib import asynccontextmanager
-from sqlalchemy.ext.asyncio import  (
-    async_sessionmaker,
+
+from sqlalchemy.ext.asyncio import (
     create_async_engine,
+    async_sessionmaker,
+    async_scoped_session
 )
-from sqlalchemy.ext.asyncio.scoping import async_scoped_session
-from sqlalchemy import exc
 
 from core.database import db_config
 
@@ -29,14 +29,17 @@ class DataBaseHelper:
 
     @asynccontextmanager
     async def get_db_session(self):
-        session = self.session_factory()
-        try:
-            yield session
-        except exc.SQLAlchemyError:
-            await session.rollback()
-            raise
-        finally:
-            await session.close()
+        from sqlalchemy import exc
+
+        async with self.session_factory() as session:
+            try:
+                yield session
+            except exc.SQLAlchemyError:
+                await session.rollback()
+                raise
+            finally:
+                await session.close()
+
 
 
 db_helper = DataBaseHelper(db_config.database_url, db_config.DB_ECHO)
