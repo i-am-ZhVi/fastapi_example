@@ -19,4 +19,3 @@ class Channel(Base):
 
     creator: Mapped["User"] = relationship(back_populates="channels")
     subscribers: Mapped[list["ChannelSubscriber"]] = relationship(back_populates="channel")
-    messages: Mapped[list["Message"]] = relationship(back_populates="channel")

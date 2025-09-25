@@ -9,3 +9,5 @@ from models.Friend import Friend
 from models.PrivateMessage import PrivateMessage
 from models.Wall import Wall
 from models.Message import Message
+from models.ChannelMessages import ChannelMessages
+from models.ChatMessages import ChatMessages
