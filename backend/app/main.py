@@ -1,5 +1,6 @@
+from datetime import datetime
 from fastapi import FastAPI
-from core import db_helper
+from schemas import UserGet
 import uvicorn
 
 
@@ -9,7 +10,16 @@ app = FastAPI()
 @app.get("/")
 def index():
 
-    return "444"
+    return UserGet(
+        **{
+            "id": 1,
+            "username": "135",
+            "avatarfileid": 1,
+            "statusmessage": "sda",
+            "createdat": datetime.now(),
+            "updatedat": datetime.now(),
+        }
+    )
 
 
 if __name__ == "__main__":

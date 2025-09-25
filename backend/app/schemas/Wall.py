@@ -1,10 +1,10 @@
 from pydantic import BaseModel
 from datetime import datetime
 
-class WallPostPydantic(BaseModel):
+class WallPost(BaseModel):
+    userid: int
     content: str
 
-class WallGetPydantic(BaseModel):
+class WallGet(WallPost):
     id: int
-    content: str
     created_at: datetime

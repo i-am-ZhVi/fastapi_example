@@ -4,11 +4,18 @@ from datetime import datetime
 class UserPost(BaseModel):
     username: str
     email: str
-    passwordhash: str
-    avatarfileid: int
+    password: str
+    avatarfileid: int | None
     statusmessage: str | None
 
-class UserGet(UserPost):
+class UserLogin(BaseModel):
+    email_or_username: str
+    password: str
+
+class UserGet(BaseModel):
     id: int
+    username: str
+    avatarfileid: int | None
+    statusmessage: str | None
     createdat: datetime
     updatedat: datetime
