@@ -7,11 +7,10 @@ from sqlalchemy.sql import text
 from models import Base
 
 
-class Message(Base):
-    __tablename__ = "messages"
+class Wall(Base):
+    __tablename__ = "walls"
     id: Mapped[int] = mapped_column(primary_key=True)
     content: Mapped[str] = mapped_column(nullable=False)
     created_at: Mapped[datetime] = mapped_column(default=datetime.now(), server_default=text("TIMEZONE('utc', now())"))
 
-    sender: Mapped["User"] = relationship(back_populates="messages")
-    chat: Mapped["Chat"] = relationship(back_populates="messages")
+    user: Mapped["User"] = relationship(back_populates="walls")
