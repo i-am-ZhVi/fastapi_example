@@ -17,4 +17,4 @@ class File(Base):
     content: Mapped[str] = mapped_column(nullable=True)
     created_at: Mapped[datetime] = mapped_column(default=datetime.now(), server_default=text("TIMEZONE('utc', now())"))
 
-    uploader: Mapped["User"] = relationship(back_populates="files")
+    uploader: Mapped["User"] = relationship(back_populates="files", foreign_keys=[uploaderid])

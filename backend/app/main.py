@@ -1,25 +1,11 @@
-from datetime import datetime
 from fastapi import FastAPI
-from schemas import UserGet
+from api import router
 import uvicorn
 
 
 app = FastAPI()
 
-
-@app.get("/")
-def index():
-
-    return UserGet(
-        **{
-            "id": 1,
-            "username": "135",
-            "avatarfileid": 1,
-            "statusmessage": "sda",
-            "createdat": datetime.now(),
-            "updatedat": datetime.now(),
-        }
-    )
+app.include_router(router)
 
 
 if __name__ == "__main__":

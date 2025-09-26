@@ -15,6 +15,3 @@ class PrivateMessage(Base):
     recipientid: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
     content: Mapped[str] = mapped_column(nullable=False)
     created_at: Mapped[datetime] = mapped_column(default=datetime.now(), server_default=text("TIMEZONE('utc', now())"))
-
-    sender: Mapped["User"] = relationship(back_populates="private_messages_sent")
-    recipient: Mapped["User"] = relationship(back_populates="private_messages_received")

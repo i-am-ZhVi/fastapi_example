@@ -16,4 +16,3 @@ class ChatMember(Base):
     joinedat: Mapped[datetime] = mapped_column(default=datetime.now(), server_default=text("TIMEZONE('utc', now())"))
 
     chat: Mapped["Chat"] = relationship(back_populates="members")
-    user: Mapped["User"] = relationship(back_populates="chats")

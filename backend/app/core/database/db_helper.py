@@ -1,5 +1,4 @@
 from asyncio import current_task
-from contextlib import asynccontextmanager
 
 from sqlalchemy.ext.asyncio import (
     create_async_engine,
@@ -27,18 +26,9 @@ class DataBaseHelper:
             scopefunc=current_task,
         )
 
-    @asynccontextmanager
     async def get_db_session(self):
-        from sqlalchemy import exc
-
         async with self.session_factory() as session:
-            try:
-                yield session
-            except exc.SQLAlchemyError:
-                await session.rollback()
-                raise
-            finally:
-                await session.close()
+            yield session
 
 
 

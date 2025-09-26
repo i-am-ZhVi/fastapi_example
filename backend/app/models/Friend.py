@@ -15,6 +15,3 @@ class Friend(Base):
     friendid: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
     status: Mapped[str] = mapped_column(nullable=False)
     createdat: Mapped[datetime] = mapped_column(default=datetime.now(), server_default=text("TIMEZONE('utc', now())"))
-
-    user: Mapped["User"] = relationship(back_populates="friends", foreign_keys=[userid])
-    friend: Mapped["User"] = relationship(back_populates="friends", foreign_keys=[friendid])
