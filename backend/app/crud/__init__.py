@@ -17,3 +17,8 @@ from crud.Message import (
     create_message,
     get_messages,
 )
+
+from crud.Friend import (
+    create_friend,
+    get_friends,
+)
