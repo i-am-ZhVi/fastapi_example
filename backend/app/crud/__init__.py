@@ -37,3 +37,13 @@ from crud.Chat import (
     create_chat,
     get_chats,
 )
+
+from crud.ChannelSubscriber import (
+    create_channel_subscriber,
+    get_channel_subscribers,
+)
+
+from crud.Channel import (
+    create_channel,
+    get_channels,
+)

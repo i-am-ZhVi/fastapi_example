@@ -9,13 +9,13 @@ from schemas import (
 
 
 async def create_chat_member(ChatMemberData: ChatMemberPost, session: AsyncSession):
-    new_file = ChatMember(
+    new_chat_member = ChatMember(
         chatid=ChatMemberData.chatid,
         userid=ChatMemberData.userid
     )
 
     try:
-        session.add(new_file)
+        session.add(new_chat_member)
         await session.commit()
         return {
             "message": "Участник успешно добавлен"
