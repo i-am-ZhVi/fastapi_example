@@ -9,7 +9,7 @@ create_wall
 )
 
 
-router = APIRouter(prefix="/walls", tags=["Walls"])
+router = APIRouter(prefix="/walls", tags=["walls"])
 
 @router.get("/")
 async def all_walls(session: AsyncSession = Depends(db_helper.get_db_session)):

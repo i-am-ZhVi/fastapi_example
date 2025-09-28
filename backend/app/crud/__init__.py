@@ -5,5 +5,10 @@ from crud.User import (
 
 from crud.Wall import (
     create_wall,
-    get_walls
+    get_walls,
+)
+
+from crud.PrivateMessage import (
+    create_private_message,
+    get_private_messages,
 )
