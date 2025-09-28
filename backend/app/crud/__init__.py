@@ -12,3 +12,8 @@ from crud.PrivateMessage import (
     create_private_message,
     get_private_messages,
 )
+
+from crud.Message import (
+    create_message,
+    get_messages,
+)

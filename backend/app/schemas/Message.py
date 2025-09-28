@@ -6,6 +6,6 @@ class MessagePost(BaseModel):
     userid: int
     content: str
 
-class MessageGet(BaseModel):
+class MessageGet(MessagePost):
     id: int
-    create_at: datetime
+    created_at: datetime
