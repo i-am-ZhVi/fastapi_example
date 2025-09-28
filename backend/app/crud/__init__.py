@@ -22,3 +22,8 @@ from crud.Friend import (
     create_friend,
     get_friends,
 )
+
+from crud.File import (
+    create_file,
+    get_files,
+)
