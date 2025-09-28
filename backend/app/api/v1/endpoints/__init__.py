@@ -4,3 +4,5 @@ from .PrivateMessage import router as private_messages_router
 from .Message import router as messages_router
 from .Friend import router as friends_router
 from .File import router as files_router
+from .ChatMember import router as chat_members_router
+from .Chat import router as chats_router

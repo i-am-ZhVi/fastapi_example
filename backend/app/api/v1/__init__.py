@@ -10,6 +10,8 @@ from .endpoints import (
     messages_router,
     friends_router,
     files_router,
+    chat_members_router,
+    chats_router,
 )
 
 router.include_router(users_router)
@@ -18,3 +20,5 @@ router.include_router(private_messages_router)
 router.include_router(messages_router)
 router.include_router(friends_router)
 router.include_router(files_router)
+router.include_router(chat_members_router)
+router.include_router(chats_router)
