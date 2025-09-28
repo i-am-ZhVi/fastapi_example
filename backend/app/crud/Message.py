@@ -3,16 +3,20 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from models import Message
 from schemas import (
     MessagePost,
-    MessageGet
+    MessageGet,
+    ChannelMessagesPost,
+    ChatMessagesPost,
 )
-from calendar import c
 
-
-async def create_message(MessageData: MessagePost, session: AsyncSession):
+async def create_message(MessageData: MessagePost, PlaceData: ChannelMessagesPost | ChatMessagesPost , session: AsyncSession):
     new_message = Message(
         userid=MessageData.userid,
         content=MessageData.content
     )
+
+    print("#"*20)
+    print(type(PlaceData))
+    print("#"*20)
 
     try:
         session.add(new_message)
