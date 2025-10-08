@@ -8,11 +8,11 @@ from schemas import (
 )
 
 
-async def create_chat(ChatData: ChatPost, session: AsyncSession):
+async def create_chat(ChatData: ChatPost, session: AsyncSession, user_id: int):
     new_chat = Chat(
         isgroup=ChatData.isgroup,
         name=ChatData.name,
-        creatorid=ChatData.creatorid,
+        creatorid=user_id,
     )
 
     try:

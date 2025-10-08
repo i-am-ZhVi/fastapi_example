@@ -47,3 +47,8 @@ from schemas.Wall import (
     WallPost,
     WallGet
 )
+
+from schemas.Auth import (
+    TokenPair,
+    TokenRefresh,
+)

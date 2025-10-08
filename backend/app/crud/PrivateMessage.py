@@ -1,4 +1,4 @@
-from sqlalchemy import select
+from sqlalchemy import select, or_
 from sqlalchemy.ext.asyncio import AsyncSession
 from models import PrivateMessage
 from schemas import (
@@ -7,9 +7,9 @@ from schemas import (
 )
 
 
-async def create_private_message(PrivateMessageData: PrivateMessagePost, session: AsyncSession):
+async def create_private_message(PrivateMessageData: PrivateMessagePost, session: AsyncSession, user_id: int):
     new_message = PrivateMessage(
-        senderid=PrivateMessageData.senderid,
+        senderid=user_id,
         recipientid=PrivateMessageData.recipientid,
         content=PrivateMessageData.content
     )
@@ -20,14 +20,18 @@ async def create_private_message(PrivateMessageData: PrivateMessagePost, session
         return {
             "message": "Личное сообщение успешно добавленно"
         }
-    except:
+    except Exception as ex:
+        print(ex)
         return {
             "message": "Не удалось добавить личное сообщение"
         }
 
 
-async def get_private_messages(session: AsyncSession):
-    response = await session.execute(select(PrivateMessage))
+async def get_private_messages(session: AsyncSession, user_id: int):
+    response = await session.execute(select(PrivateMessage).where(or_(
+        PrivateMessage.senderid == user_id,
+        PrivateMessage.recipientid == user_id
+    )))
     private_messages = response.scalars().all()
 
     return [PrivateMessageGet.model_validate(message, from_attributes=True) for message in private_messages]

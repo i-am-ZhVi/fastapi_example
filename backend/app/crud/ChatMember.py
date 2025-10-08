@@ -8,10 +8,10 @@ from schemas import (
 )
 
 
-async def create_chat_member(ChatMemberData: ChatMemberPost, session: AsyncSession):
+async def create_chat_member(ChatMemberData: ChatMemberPost, session: AsyncSession, user_id: int):
     new_chat_member = ChatMember(
         chatid=ChatMemberData.chatid,
-        userid=ChatMemberData.userid
+        userid=user_id
     )
 
     try:

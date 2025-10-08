@@ -8,10 +8,10 @@ from schemas import (
 )
 
 
-async def create_channel_subscriber(ChannelSubscriberData: ChannelSubscriberPost, session: AsyncSession):
+async def create_channel_subscriber(ChannelSubscriberData: ChannelSubscriberPost, session: AsyncSession, user_id: int):
     new_channel_subscriber = ChannelSubscriber(
         channelid=ChannelSubscriberData.channelid,
-        userid=ChannelSubscriberData.userid,
+        userid=user_id,
     )
 
     try:

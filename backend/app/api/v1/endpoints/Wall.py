@@ -1,7 +1,10 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core import db_helper
+from core import (
+    db_helper,
+    auth_helper,
+)
 from schemas import WallPost
 from crud import (
 get_walls,
@@ -17,5 +20,5 @@ async def all_walls(session: AsyncSession = Depends(db_helper.get_db_session)):
 
 
 @router.post("/")
-async def new_wall(WallData: WallPost, session: AsyncSession = Depends(db_helper.get_db_session)):
-    return await create_wall(WallData, session)
+async def new_wall(WallData: WallPost, session: AsyncSession = Depends(db_helper.get_db_session), user_id: int = Depends(auth_helper.get_current_user)):
+    return await create_wall(WallData, session, user_id)

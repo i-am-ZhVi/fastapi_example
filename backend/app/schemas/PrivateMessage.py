@@ -3,10 +3,10 @@ from datetime import datetime
 
 class PrivateMessagePost(BaseModel):
     content: str
-    senderid: int
     recipientid: int
 
 
 class PrivateMessageGet(PrivateMessagePost):
     id: int
+    senderid: int
     created_at: datetime

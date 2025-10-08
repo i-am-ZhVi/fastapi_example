@@ -8,9 +8,11 @@ from schemas import (
 )
 
 
-async def create_friend(FriendData: FriendPost, session: AsyncSession):
+async def create_friend(FriendData: FriendPost,
+    session: AsyncSession,
+    user_id: int):
     new_friend = Friend(
-        userid=FriendData.userid,
+        userid=user_id,
         friendid=FriendData.friendid,
         status=FriendData.status,
     )
@@ -26,8 +28,11 @@ async def create_friend(FriendData: FriendPost, session: AsyncSession):
             "message": "Не удалось добавить друга"
         }
 
-async def get_friends(session: AsyncSession):
-    response = await session.execute(select(Friend))
+async def get_friends(session: AsyncSession, user_id: int):
+    response = await session.execute(select(Friend).where(or_(
+        Friend.userid == user_id,
+        Friend.friendid == user_id,
+    )))
     friends = response.scalars().all()
 
     return [FriendGet.model_validate(friend, from_attributes=True) for friend in friends]

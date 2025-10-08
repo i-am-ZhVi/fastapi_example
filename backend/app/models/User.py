@@ -1,11 +1,19 @@
+import enum
+
 from sqlalchemy.orm import mapped_column, relationship
 from sqlalchemy.orm.base import Mapped
+from sqlalchemy import Enum
 from datetime import datetime
 
 from sqlalchemy.schema import ForeignKey
 from sqlalchemy.sql import text
 
 from models import Base
+
+
+class Role(enum.Enum):
+    admin = "admin"
+    user = "user"
 
 class User(Base):
     __tablename__ = "users"
@@ -15,6 +23,7 @@ class User(Base):
     passwordhash: Mapped[str] = mapped_column(nullable=False)
     avatarfileid: Mapped[int] = mapped_column(ForeignKey("files.id"), nullable=True)
     statusmessage: Mapped[str] = mapped_column(nullable=True)
+    role: Mapped[Role] = mapped_column(Enum(Role), default=Role.user, server_default="user")
     createdat: Mapped[datetime] = mapped_column(default=datetime.now(), server_default=text("TIMEZONE('utc', now())"))
     updatedat: Mapped[datetime] = mapped_column(default=datetime.now(), onupdate=datetime.now())
 

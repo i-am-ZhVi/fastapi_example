@@ -8,9 +8,9 @@ from schemas import (
 )
 
 
-async def create_file(FileData: FilePost, session: AsyncSession):
+async def create_file(FileData: FilePost, session: AsyncSession, user_id: int):
     new_file = File(
-        uploaderid=FileData.uploaderid,
+        uploaderid=user_id,
         filename=FileData.filename,
         content=FileData.content,
     )
@@ -26,8 +26,8 @@ async def create_file(FileData: FilePost, session: AsyncSession):
             "message": "Не удалось добавить файл"
         }
 
-async def get_files(session: AsyncSession):
-    response = await session.execute(select(File))
+async def get_files(session: AsyncSession, user_id: int):
+    response = await session.execute(select(File).where(File.uploaderid == user_id))
     files = response.scalars().all()
 
     return [FileGet.model_validate(file, from_attributes=True) for file in files]

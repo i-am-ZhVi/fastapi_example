@@ -1,11 +1,16 @@
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from models import User
+from models import (
+    User,
+    Role,
+)
 from schemas import (
     UserPost,
     UserGet
 )
+from core import settings
+
 
 async def create_user(UserData: UserPost, session: AsyncSession):
     if ((await session.execute(select(User).filter(User.username == UserData.username))).first() != None):
@@ -20,8 +25,9 @@ async def create_user(UserData: UserPost, session: AsyncSession):
         new_user = User(
             username=UserData.username,
             email=UserData.email,
-            passwordhash=UserData.password,
+            passwordhash=settings.pwd_context.hash(UserData.password),
             avatarfileid=UserData.avatarfileid,
+            role=Role.user,
            statusmessage=UserData.statusmessage
         )
         session.add(new_user)
@@ -30,7 +36,8 @@ async def create_user(UserData: UserPost, session: AsyncSession):
         return {
             "message": "пользователь успешно создан"
         }
-    except:
+    except Exception as ex:
+        print(ex)
         return {
             "message": "Возникла непредвиденная ошибка"
         }

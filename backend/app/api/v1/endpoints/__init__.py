@@ -8,3 +8,4 @@ from .ChatMember import router as chat_members_router
 from .Chat import router as chats_router
 from .ChannelSubscriber import router as channel_subscribers_router
 from .Channel import router as channels_router
+from .Auth import router as auth_router

@@ -8,11 +8,11 @@ from schemas import (
 )
 
 
-async def create_channel(ChannelData: ChannelPost, session: AsyncSession):
+async def create_channel(ChannelData: ChannelPost, session: AsyncSession, user_id: int):
     new_channel = Channel(
         name=ChannelData.name,
         description=ChannelData.description,
-        creatorid=ChannelData.creatorid,
+        creatorid=user_id,
         ispublic=ChannelData.ispublic,
     )
 

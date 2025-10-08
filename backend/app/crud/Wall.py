@@ -8,9 +8,9 @@ from schemas import (
 )
 
 
-async def create_wall(WallData: WallPost, session: AsyncSession):
+async def create_wall(WallData: WallPost, session: AsyncSession, user_id: int):
     new_wall = Wall(
-        userid=WallData.userid,
+        userid=user_id,
         content=WallData.content
     )
     try:

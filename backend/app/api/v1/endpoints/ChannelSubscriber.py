@@ -6,8 +6,10 @@ from crud import (
     create_channel_subscriber,
     get_channel_subscribers,
 )
-from core import db_helper
-
+from core import (
+    db_helper,
+    auth_helper,
+)
 
 router = APIRouter(prefix="/channel_subscribers", tags=["channel_subscribers"])
 
@@ -16,5 +18,7 @@ async def all_channel_subscribers(session: AsyncSession = Depends(db_helper.get_
     return await get_channel_subscribers(session)
 
 @router.post("/")
-async def new_channel_subscriber(ChannelSubscriberData: ChannelSubscriberPost, session: AsyncSession = Depends(db_helper.get_db_session)):
-    return await create_channel_subscriber(ChannelSubscriberData, session)
+async def new_channel_subscriber(ChannelSubscriberData: ChannelSubscriberPost,
+    session: AsyncSession = Depends(db_helper.get_db_session),
+    user_id: int = Depends(auth_helper.get_current_user)):
+    return await create_channel_subscriber(ChannelSubscriberData, session, user_id)
